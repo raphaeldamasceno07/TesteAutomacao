@@ -52,31 +52,29 @@ async function inputPersonalData() {
       const nameInput = await driver.wait(until.elementLocated(By.xpath(nameXpath)), 10000);
       await driver.wait(until.elementIsVisible(nameInput), 10000);
 
-      await driver.sleep(1000)
-
       const phoneInput = await driver.wait(until.elementLocated(By.xpath(phoneNumberXpath)), 10000);
       await driver.wait(until.elementIsVisible(phoneInput), 10000);
 
-      await driver.sleep(1000)
+      await driver.sleep(600)
 
       const emailInput = await driver.wait(until.elementLocated(By.xpath(emailXpath)), 10000);
       await driver.wait(until.elementIsVisible(emailInput), 10000);
 
-      await driver.sleep(1000)
+      await driver.sleep(600)
 
       const buttonNext = await driver.wait(until.elementLocated(By.xpath(nextButtonXpath)), 10000);
       await driver.wait(until.elementIsVisible(buttonNext), 10000);
 
-      await driver.sleep(1000)
+      await driver.sleep(600)
 
       await nameInput.sendKeys(data.name);
       await phoneInput.sendKeys(data.phoneNumber);
 
-      await driver.sleep(1000)
+      await driver.sleep(600)
 
       if (/^\S+@\S+\.\S+/.test(data.email)) {
         await emailInput.sendKeys(data.email);
-        await driver.sleep(1000)
+        await driver.sleep(600)
       }
       else {
         console.log(`E-mail ${data.email} é inválido. Por favor, insira um e-mail válido.`);
@@ -121,16 +119,16 @@ async function inputAddress() {
 
 
       await zipCodeInput.sendKeys(item.zipCode);
-      await driver.sleep(1000)
+      await driver.sleep(600)
 
       await addressInput.sendKeys(item.street);
-      await driver.sleep(1000)
+      await driver.sleep(600)
 
       await cityInput.sendKeys(item.city);
-      await driver.sleep(1000)
+      await driver.sleep(600)
 
       await stateInput.sendKeys(item.state);
-      await driver.sleep(1000)
+      await driver.sleep(600)
 
     }
     const nextButton = await driver.wait(until.elementLocated(By.xpath(nextButtonXpath)), 10000);
@@ -171,20 +169,20 @@ async function inputPaymentData() {
 
 
     ownerInput.sendKeys(item.name);
-    await driver.sleep(1000)
+    await driver.sleep(600)
     creditCardNumberInput.sendKeys(item.creditCardNumber);
-    await driver.sleep(1000)
+    await driver.sleep(600)
     expirationDateInput.sendKeys(item.expirationDate);
-    await driver.sleep(1000)
+    await driver.sleep(600)
     securityCodeInput.sendKeys(item.securityCode);
-    await driver.sleep(1000)
+    await driver.sleep(600)
 
   }
   const nextButton = await driver.wait(until.elementLocated(By.xpath(nextButtonXpath)), 10000);
   await driver.wait(until.elementIsVisible(nextButton), 10000);
   nextButton.click();
 
-  await driver.sleep(6000);
+  await driver.sleep(5000);
 
 }
 

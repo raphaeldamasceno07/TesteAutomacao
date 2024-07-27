@@ -4,11 +4,11 @@ const driver = new Builder().forBrowser('chrome').build();
 async function OpenBrowser() {
     await driver.get("https://docs.python.org/3/");
 
-    await driver.sleep(5000);
+    await driver.sleep(3000);
 
    await driver.executeScript(changeAllParagraphsTexts)
 
-    await driver.sleep(10000);
+    await driver.sleep(3000);
 }
 
 async function changeAllParagraphsTexts() {
