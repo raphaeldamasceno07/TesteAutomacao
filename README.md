@@ -6,6 +6,6 @@
 
 ### Comandos para inicializar
 
-tarefa 1: `npm run task`
+tarefa 1: `node automacao/tarefa1.js`
 
-tarefa 2:  `npm run task2`
+tarefa 2:  `node automacao/tarefa2.js`
