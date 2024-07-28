@@ -14,7 +14,7 @@ async function OpenBrowser() {
 async function changeAllParagraphsTexts() {
     const paragraphs = document.querySelectorAll("p");
     paragraphs.forEach(p => {
-        p.textContent = 'Texto alterado';
+        p.innerHTML = 'Texto alterado';
     });
 }
 
