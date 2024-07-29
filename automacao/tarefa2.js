@@ -1,5 +1,13 @@
-const { By, Builder, until, Browser } = require("selenium-webdriver");
-const driver = new Builder().forBrowser('chrome').build();
+const { By, Builder, until } = require("selenium-webdriver");
+const chrome = require("selenium-webdriver/chrome");
+
+const options = new chrome.Options();
+options.addArguments('--start-maximized');
+
+const driver = new Builder()
+    .forBrowser('chrome')
+    .setChromeOptions(options)
+    .build();
 
 async function OpenBrowser() {
     await driver.get("https://docs.python.org/3/");
