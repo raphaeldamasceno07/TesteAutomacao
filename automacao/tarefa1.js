@@ -1,30 +1,20 @@
 const { Builder, By, until } = require('selenium-webdriver')
 const driver = new Builder().forBrowser('chrome').build();
 
-const personalInformation = [
+const allData = [
     {
         name: "Eduardo Raphael Silva Damasceno",
         phoneNumber: "(22) 99247-9791",
         email: "rdamasceno1852@gmail.com",
-    },
-];
-
-const addressInformation = [
-    {
         zipCode: "12345-678",
         street: "Rua Rio de Janeiro",
         city: "Belo Horizonte",
         state: "MG",
-    },
-];
-
-const paymentInformation = [
-    {
-        name: "Raphael Damasceno",
+        creditCardName: "Raphael Damasceno",
         creditCardNumber: "1234 5678 9012 3456",
         expirationDate: "03/2032",
         securityCode: "123",
-    },
+    }
 ];
 
 async function insertData() {
@@ -43,27 +33,25 @@ async function insertData() {
 }
 
 async function insertPersonalData() {
-    let nameXpath = '//label[text()="Nome Completo"]/following-sibling::input'
-    let phoneXpath = '//label[text()="Telefone"]/following-sibling::input'
-    let emailXpath = '//label[text()="E-mail"]/following-sibling::input'
-    let nextButtonXpath = '//button[@id="next-btn"]'
+    let nameXpath = 'Nome Completo'
+    let phoneXpath = 'Telefone'
+    let emailXpath = 'E-mail'
 
     try {
-        for (const data of personalInformation) {
+        for (const data of allData) {
 
-            const nameInput = await driver.wait(until.elementLocated(By.xpath(nameXpath)), 10000)
-            await driver.wait(until.elementIsVisible(nameInput), 10000).sendKeys(data.name)
+            personalizedInputXpath(nameXpath, data.name)
 
             await driver.sleep(500)
 
-            const phoneInput = await driver.wait(until.elementLocated(By.xpath(phoneXpath)), 10000)
-            await driver.wait(until.elementIsVisible(phoneInput), 10000).sendKeys(data.phoneNumber)
+            personalizedInputXpath(phoneXpath, data.phoneNumber)
 
             await driver.sleep(500)
 
             if (/^\S+@\S+\.\S+/.test(data.email)) {
-                const emailInput = await driver.wait(until.elementLocated(By.xpath(emailXpath)), 10000)
-                await driver.wait(until.elementIsVisible(emailInput), 10000).sendKeys(data.email)
+
+                personalizedInputXpath(emailXpath, data.email)
+
             } else {
                 await driver.executeScript('alert("email invalido por favor insira um email valido")')
                 await driver.sleep(5000)
@@ -74,48 +62,39 @@ async function insertPersonalData() {
 
         }
 
-        const nextButton = await driver.wait(until.elementLocated(By.xpath(nextButtonXpath)), 10000)
-        await driver.wait(until.elementIsVisible(nextButton)).click()
-
+        nextBtn()
     } catch (error) {
         throw error
     }
 }
 
 async function insertAddress() {
-    let zipCodeXpath = '//label[text()="CEP"]/following-sibling::input'
-    let streetXpath = '//label[text()="Endereço"]/following-sibling::input'
-    let cityXpath = '//label[text()="Cidade"]/following-sibling::input'
-    let stateXpath = '//label[text()="Estado"]/following-sibling::input'
-    let nextButtonXpath = '//button[@id="next-btn"]'
+    let zipCodeXpath = 'CEP'
+    let streetXpath = 'Endereço'
+    let cityXpath = 'Cidade'
+    let stateXpath = 'Estado'
 
     try {
-        for (const data of addressInformation) {
-
-            const zipCodeInput = await driver.wait(until.elementLocated(By.xpath(zipCodeXpath)), 10000)
-            await driver.wait(until.elementIsVisible(zipCodeInput), 10000).sendKeys(data.zipCode)
+        for (const data of allData) {
+            personalizedInputXpath(zipCodeXpath, data.zipCode)
 
             await driver.sleep(500)
 
-            const streetInput = await driver.wait(until.elementLocated(By.xpath(streetXpath)), 10000)
-            await driver.wait(until.elementIsVisible(streetInput), 10000).sendKeys(data.street)
+            personalizedInputXpath(streetXpath, data.street)
 
             await driver.sleep(500)
 
-            const cityInput = await driver.wait(until.elementLocated(By.xpath(cityXpath)), 10000)
-            await driver.wait(until.elementIsVisible(cityInput), 10000).sendKeys(data.city)
+            personalizedInputXpath(cityXpath, data.city)
 
             await driver.sleep(500)
 
-            const stateInput = await driver.wait(until.elementLocated(By.xpath(stateXpath)), 10000)
-            await driver.wait(until.elementIsVisible(stateInput), 10000).sendKeys(data.state)
+            personalizedInputXpath(stateXpath, data.state)
 
             await driver.sleep(500)
 
         }
 
-        const nextButton = await driver.wait(until.elementLocated(By.xpath(nextButtonXpath)), 10000)
-        await driver.wait(until.elementIsVisible(nextButton)).click()
+        nextBtn()
 
     } catch (error) {
         throw error
@@ -123,45 +102,50 @@ async function insertAddress() {
 }
 
 async function InsertPaymentData() {
-    let ownerXpath = '//label[text()="Nome do Titular"]/following-sibling::input';
-    let creditCardNumberXpath = '//label[text()="Número do Cartão"]/following-sibling::input';
-    let expirationDateXpath = '//label[text()="Data de Validade"]/following-sibling::input';
-    let securityCodeXpath = '//label[text()="CVV"]/following-sibling::input';
-    let nextButtonXpath = '//button[@id="next-btn"]'
+    let ownerXpath = 'Nome do Titular';
+    let creditCardNumberXpath = 'Número do Cartão';
+    let expirationDateXpath = 'Data de Validade';
+    let securityCodeXpath = 'CVV';
+
 
     try {
-        for (const data of paymentInformation) {
+        for (const data of allData) {
 
-            const ownerNameInput = await driver.wait(until.elementLocated(By.xpath(ownerXpath)), 10000)
-            await driver.wait(until.elementIsVisible(ownerNameInput), 10000).sendKeys(data.name)
-
-            await driver.sleep(500)
-
-            const creditCardNumberInput = await driver.wait(until.elementLocated(By.xpath(creditCardNumberXpath)), 10000)
-            await driver.wait(until.elementIsVisible(creditCardNumberInput), 10000).sendKeys(data.creditCardNumber)
+            personalizedInputXpath(ownerXpath, data.creditCardName)
 
             await driver.sleep(500)
 
-            const expirationDateInput = await driver.wait(until.elementLocated(By.xpath(expirationDateXpath)), 10000)
-            await driver.wait(until.elementIsVisible(expirationDateInput), 10000).sendKeys(data.expirationDate)
+            personalizedInputXpath(creditCardNumberXpath, data.creditCardNumber)
 
             await driver.sleep(500)
 
-            const securityCodeInput = await driver.wait(until.elementLocated(By.xpath(securityCodeXpath)), 10000)
-            await driver.wait(until.elementIsVisible(securityCodeInput), 10000).sendKeys(data.securityCode)
+            personalizedInputXpath(expirationDateXpath, data.expirationDate)
+
+            await driver.sleep(500)
+
+            personalizedInputXpath(securityCodeXpath, data.securityCode)
 
             await driver.sleep(500)
 
         }
 
-        const nextButton = await driver.wait(until.elementLocated(By.xpath(nextButtonXpath)), 10000)
-        await driver.wait(until.elementIsVisible(nextButton)).click()
+        nextBtn();
 
         await driver.sleep(5000)
 
     } catch (error) {
         throw error
     }
+}
+
+const personalizedInputXpath = async (xpath, data) => {
+    const input = await driver.wait(until.elementLocated(By.xpath(`//label[text()="${xpath}"]/following-sibling::input`)), 10000)
+    await driver.wait(until.elementIsVisible(input), 10000).sendKeys(data)
+}
+
+const nextBtn = async () => {
+    const nextButton = await driver.wait(until.elementLocated(By.xpath("//button[@id='next-btn']")), 10000)
+    await driver.wait(until.elementIsVisible(nextButton)).click()
 }
 
 insertData()
